@@ -14,6 +14,7 @@ local chapter_names = { -- Change to whatever you want. Every chapter past the a
 	[4] = "Ending",
 	[5] = "Preview", -- "Epilogue"
 }
+
 -- Keybinds
 local AddChapterBind = "C" -- Add current position as chapter with above naming scheme
 local SaveChapterBind  = "B" -- Save chapter to xml file
@@ -90,15 +91,15 @@ local function add_chapter()
     mp.set_property_number("chapter", curr_chapter)
 	
 	if SeekOped then
-		if curr_chapter == 2 then
+		if chapter_name == "Opening" then
 			mp.command("seek " .. OpLength)
-			print("Seeking " .. OpLength .. " secs (Opening)")
-		elseif curr_chapter == 3 then
+			print("Seeking " .. OpLength .. " secs [" .. chapter_name .. "]")
+		elseif chapter_name == "Episode" then
 			mp.command("seek " .. EpLength)
-			print("Seeking " .. EpLength .. " secs (Episode)")
-		elseif curr_chapter == 4 then
+			print("Seeking " .. EpLength .. " secs [" .. chapter_name .. "]")
+		elseif chapter_name == "Ending" then
 			mp.command("seek " .. EdLength)
-			print("Seeking " .. EdLength .. " secs (Ending)")
+			print("Seeking " .. EdLength .. " secs [" .. chapter_name .. "]")
 		end
 	end
 	
