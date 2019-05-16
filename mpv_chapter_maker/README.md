@@ -27,7 +27,8 @@ local AddChapterBind = "C" -- Add current position as chapter with above naming 
 local SaveChapterBind  = "B" -- Save chapter to xml file
 
 -- For convinience, it seeks the aprox. OP/ED and Episode length ahead to save some time.
--- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length
+-- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length,
+-- so for anime-shorts you have to change this or turn off 'SeekOped'.
 local SeekOped = true
 local OpLength = 89 -- 1min29s
 local EdLength = 89 -- 1min29s
