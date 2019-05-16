@@ -1,5 +1,21 @@
-local utils = require("mp.utils")
+--[[
 
+This file is part of https://github.com/DeadSix27/mpv_various_scripts/.
+Copyright (c) 2019 https://github.com/DeadSix27
+
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, version 3.
+
+This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+--]]
 
 -- Small tool to create MKV-Chapter files for Anime Episodes.
 -- Based on the idea of https://github.com/shinchiro/mpv-createchapter
@@ -14,19 +30,21 @@ local chapter_names = { -- Change to whatever you want. Every chapter past the a
 	[4] = "Ending",
 	[5] = "Preview", -- "Epilogue"
 }
-
 -- Keybinds
 local AddChapterBind = "C" -- Add current position as chapter with above naming scheme
 local SaveChapterBind  = "B" -- Save chapter to xml file
 
 -- For convinience, it seeks the aprox. OP/ED and Episode length ahead to save some time.
--- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length
+-- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length,
+-- so for anime-shorts you have to change this or turn off 'SeekOped'.
 local SeekOped = true
 local OpLength = 89 -- 1min29s
 local EdLength = 89 -- 1min29s
 local EpLength = 1170 -- 19m30s
 
 -- -------------------------------------------------------------
+
+local utils = require("mp.utils")
 
 local chapter_list = {}
 local curr_chapter = 1
