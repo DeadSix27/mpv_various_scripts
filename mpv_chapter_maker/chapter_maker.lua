@@ -57,7 +57,7 @@ local EpLength = 1170 -- 19m30s
 -- 'mp.observe_property("fullscreen", "bool",'
 -- then set the below value to 'true' instead of 'false'
 --
-local reInitOSC = true
+local reInitOSC = false
 
 -- -------------------------------------------------------------
 
