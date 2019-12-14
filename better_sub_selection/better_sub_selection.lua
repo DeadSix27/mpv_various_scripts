@@ -4,7 +4,7 @@ local inspect = require 'inspect'
 
 -- This script makes mpv re-use "--slang=[lang],[lanmg],..." even when switching files in playlist. (seems to not do that by default for some reason?)
 -- Additionally you can specify "--script-opts=bss-list="[title1]|[title2]|.." to select subtitles in order by title, title can be a str or lua pattern (e.g "GroupName.+ENG.+")
--- If you specify just a string it will only check wether that string is in the title, it does not do full comparison.
+-- If you specify just a string it will only check wether that string is in the title, it does not do exact comparison.
 
 -- Example:
 -- mpv --script-opts=bss-list="Hi I am|foobar" file.mkv 
