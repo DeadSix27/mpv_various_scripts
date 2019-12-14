@@ -38,9 +38,26 @@ local SaveChapterBind  = "B" -- Save chapter to xml file
 -- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length,
 -- so for anime-shorts you have to change this or turn off 'SeekOped'.
 local SeekOped = true
+local OpSeekTitle = "Opening" -- In case you want the "Op-Seek" to happen after another chapter name, e.g Prologue, then change this variable.
+local EpSeekTitle = "Episode" -- Same as above, but for the Episode Seek
+local EdSeekTitle = "Ending" -- Same as above, but for the Ending Seek
 local OpLength = 89 -- 1min29s
 local EdLength = 89 -- 1min29s
 local EpLength = 1170 -- 19m30s
+
+
+-- [Optional] Show chapters in OSC while creating them: --
+--
+-- The OSC won't display the chapter markers until it's reloaded,
+-- to do this we have to actually edit the OSC, you'll have to download it from here (unless you use a custom OSC, then the same code edit below may or may not work for you):
+-- https://raw.githubusercontent.com/mpv-player/mpv/master/player/lua/osc.lua
+-- and place it into your scripts folder, then add "osc=no" into your mpv.conf and add the following line of code (without end/start single quote):
+-- 'mp.register_script_message("osc-request-init", request_init)'
+-- above this line (without end/start single quote), it should only exist once, if not, then good luck:
+-- 'mp.observe_property("fullscreen", "bool",'
+-- then set the below value to 'true' instead of 'false'
+--
+local reInitOSC = true
 
 -- -------------------------------------------------------------
 
@@ -109,19 +126,23 @@ local function add_chapter()
     mp.set_property_number("chapter", curr_chapter)
 	
 	if SeekOped then
-		if chapter_name == "Opening" then
+		if chapter_name == OpSeekTitle then
 			mp.command("seek " .. OpLength)
 			print("Seeking " .. OpLength .. " secs [" .. chapter_name .. "]")
-		elseif chapter_name == "Episode" then
+		elseif chapter_name == EpSeekTitle then
 			mp.command("seek " .. EpLength)
 			print("Seeking " .. EpLength .. " secs [" .. chapter_name .. "]")
-		elseif chapter_name == "Ending" then
+		elseif chapter_name == EdSeekTitle then
 			mp.command("seek " .. EdLength)
 			print("Seeking " .. EdLength .. " secs [" .. chapter_name .. "]")
 		end
 	end
 	
 	curr_chapter = curr_chapter + 1
+	
+	if reInitOSC then
+		mp.command("script-message osc-request-init")
+	end
 end
 
 local function format_time(seconds)
@@ -161,7 +182,6 @@ end
 
 local function save_chapter()
 	local euid = math.random(100000000,999999999) .. math.random(1000000000,9999999999)
-	
 	local full_chapter_str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 	full_chapter_str = full_chapter_str .. "<!-- <!DOCTYPE Chapters SYSTEM \"matroskachapters.dtd\"> -->\n"
 	full_chapter_str = full_chapter_str .. "<Chapters>\n"
