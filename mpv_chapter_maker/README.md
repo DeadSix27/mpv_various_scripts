@@ -15,6 +15,9 @@ But the only thing leftover is format_time.
 ### Options:
 
 ```lua
+
+-- Config ------------------------------------------------------
+
 local chapter_names = { -- Change to whatever you want. Every chapter past the amount of entries in this table, will be named "Chapter (num)"
 	[1] = "Prologue",
 	[2] = "Opening",
@@ -30,9 +33,26 @@ local SaveChapterBind  = "B" -- Save chapter to xml file
 -- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length,
 -- so for anime-shorts you have to change this or turn off 'SeekOped'.
 local SeekOped = true
+local OpSeekTitle = "Opening" -- In case you want the "Op-Seek" to happen after another chapter name, e.g Prologue, then change this variable.
+local EpSeekTitle = "Episode" -- Same as above, but for the Episode Seek
+local EdSeekTitle = "Ending" -- Same as above, but for the Ending Seek
 local OpLength = 89 -- 1min29s
 local EdLength = 89 -- 1min29s
 local EpLength = 1170 -- 19m30s
+
+
+-- [Optional] Show chapters in OSC while creating them: --
+--
+-- The OSC won't display the chapter markers until it's reloaded,
+-- to do this we have to actually edit the OSC, you'll have to download it from here (unless you use a custom OSC, then the same code edit below may or may not work for you):
+-- https://raw.githubusercontent.com/mpv-player/mpv/master/player/lua/osc.lua
+-- and place it into your scripts folder, then add "osc=no" into your mpv.conf and add the following line of code (without end/start single quote):
+-- 'mp.register_script_message("osc-request-init", request_init)'
+-- above this line (without end/start single quote), it should only exist once, if not, then good luck:
+-- 'mp.observe_property("fullscreen", "bool",'
+-- then set the below value to 'true' instead of 'false'
+--
+local reInitOSC = false
 ```
 
 Feel free to change them in the script.
