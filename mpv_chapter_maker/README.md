@@ -6,10 +6,10 @@ Based on the idea of https://github.com/shinchiro/mpv-createchapter
 But the only thing leftover is format_time.
 
 ### Usage:
-- Seek to the first frame of the Opening, hit `AddChapterBind`
-- If `SeekOped` is `true`, you'll be skipped closely to the end of the Opening
-- Find the first frame that's not the Opening anymore, hit `AddChapterBind`
-- Repeat for Ending and Epilogue or Preview, see `chapter_names` entry #5. Change to what is appropriate for the current Anime.
+- Seek to the first frame of the Opening, hit the key defined via `AddChapterBind` (Default: Shift-c)
+- If `SeekOped` is set to `true` in the options, you'll be skipped closely to the end of the Opening (configureable, see: `OpLength`)
+- Find the first frame that's not the Opening anymore, hit the `AddChapterBind` key again (Default: Shift-c) and you'll be skipped approx. to the end of the Episode/start of the Ending (configureable, see: `EpLength`)
+- Repeat for Ending and Epilogue or Preview, see `chapter_names` entry #5. Change to what is appropriate for the current Anime, e.g if it has no Prologue, remove the Prologue entry (for example).
 
 
 ### Options:
