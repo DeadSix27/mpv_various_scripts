@@ -38,12 +38,12 @@ local SaveChapterBind  = "B" -- Save chapter to xml file
 -- Might not be always accurate, relies on the 1min30s OPED standard and episodes around 20min length,
 -- so for anime-shorts you have to change this or turn off 'SeekOped'.
 local SeekOped = true
-local OpSeekTitle = "Opening" -- In case you want the "Op-Seek" to happen after another chapter name, e.g Prologue, then change this variable.
-local EpSeekTitle = "Episode" -- Same as above, but for the Episode Seek
-local EdSeekTitle = "Ending" -- Same as above, but for the Ending Seek
-local OpLength = 89 -- 1min29s
-local EdLength = 89 -- 1min29s
-local EpLength = 1170 -- 19m30s
+local OpSeekId = 2 -- Specify the number of the "Opening" chapter after which you want to seek (see chapter_names table)
+local EpSeekId = 3 -- Same as above, but for the "Episode" Seek
+local EdSeekId = 4 -- Same as above, but for the "Ending" Seek
+local OpLength = 89 -- How far to seek after Openings (89 (1min29s) is the default)
+local EpLength = 1170 -- How far to seek after Episode (1170 (19m30s) is the default)
+local EdLength = 89 -- How far to seek after Endings (89 (1min29s) is the default)
 
 
 -- [Optional] Show chapters in OSC while creating them: --
@@ -126,13 +126,13 @@ local function add_chapter()
     mp.set_property_number("chapter", curr_chapter)
 	
 	if SeekOped then
-		if chapter_name == OpSeekTitle then
+		if curr_chapter == OpSeekId then
 			mp.command("seek " .. OpLength)
 			print("Seeking " .. OpLength .. " secs [" .. chapter_name .. "]")
-		elseif chapter_name == EpSeekTitle then
+		elseif curr_chapter == EpSeekId then
 			mp.command("seek " .. EpLength)
 			print("Seeking " .. EpLength .. " secs [" .. chapter_name .. "]")
-		elseif chapter_name == EdSeekTitle then
+		elseif curr_chapter == EdSeekId then
 			mp.command("seek " .. EdLength)
 			print("Seeking " .. EdLength .. " secs [" .. chapter_name .. "]")
 		end
