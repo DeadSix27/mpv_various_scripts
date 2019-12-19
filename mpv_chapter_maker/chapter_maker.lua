@@ -209,5 +209,12 @@ local function save_chapter()
 	
 end
 
+function on_file_loaded(event) -- We have to reset the chapters whenever a new file is loaded
+	chapter_list = {}
+	curr_chapter = 1
+	mp.set_property_native("chapter-list", chapter_list)
+end
+
+mp.register_event("file-loaded", on_file_loaded)
 mp.add_key_binding(AddChapterBind, "add_chapter", add_chapter, {repeatable=true})
 mp.add_key_binding(SaveChapterBind, "save_chapter", save_chapter, {repeatable=false})
