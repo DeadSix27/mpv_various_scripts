@@ -87,6 +87,7 @@ local function add_chapter()
 	end
 	
 	if curr_chapter == 1 then
+		mp.set_property_native("chapter-list", chapter_list)
 		table.insert(chapter_list,
 			{
 				title = chapter_name,
@@ -210,7 +211,6 @@ end
 function on_file_loaded(event) -- We have to reset the chapters whenever a new file is loaded
 	chapter_list = {}
 	curr_chapter = 1
-	mp.set_property_native("chapter-list", chapter_list)
 end
 
 mp.register_event("file-loaded", on_file_loaded)
