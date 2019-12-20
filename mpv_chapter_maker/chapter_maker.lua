@@ -73,14 +73,12 @@ function lent(T)
 end
 
 function has_key(T, K)
-    return T[K] ~= nil
+	return T[K] ~= nil
 end
 
 local function add_chapter()
-    local time_pos = mp.get_property_number("time-pos")
-    local time_pos_osd = mp.get_property_osd("time-pos/full")
-    local chapter_count = mp.get_property_number("chapter-list/count")
-    local all_chapters = mp.get_property_native("chapter-list")
+	local time_pos = mp.get_property_number("time-pos")
+	local time_pos_osd = mp.get_property_osd("time-pos/full")
 	local duration = mp.get_property_native("duration")
 	
 	local chapter_name = "Chapter " .. curr_chapter
@@ -114,7 +112,7 @@ local function add_chapter()
 	)
 	print(curr_chapter, chapter_name, time_pos)
 	
-    mp.osd_message("Added \"" .. chapter_name .. "\" Chapter Marker at " .. time_pos_osd, 2)
+	mp.osd_message("Added \"" .. chapter_name .. "\" Chapter Marker at " .. time_pos_osd, 2)
 	
 	chapter_list[curr_chapter-1].end_time = time_pos
 	
@@ -123,7 +121,7 @@ local function add_chapter()
 	end
 	
 	mp.set_property_native("chapter-list", chapter_list)
-    mp.set_property_number("chapter", curr_chapter)
+	mp.set_property_number("chapter", curr_chapter)
 	
 	if SeekOped then
 		if curr_chapter == OpSeekId then
@@ -146,17 +144,17 @@ local function add_chapter()
 end
 
 local function format_time(seconds)
-    local result = ""
-    if seconds <= 0 then
-        return "00:00:00.000";
-    else
-        local hours = string.format("%02.f", math.floor(seconds/3600))
-        local mins = string.format("%02.f", math.floor(seconds/60 - (hours*60)))
-        local secs = string.format("%02.f", math.floor(seconds - hours*60*60 - mins*60))
-        local msecs = string.format("%03.f", seconds*1000 - hours*60*60*1000 - mins*60*1000 - secs*1000)
-        result = hours..":"..mins..":"..secs.."."..msecs
-    end
-    return result
+	local result = ""
+	if seconds <= 0 then
+		return "00:00:00.000";
+	else
+		local hours = string.format("%02.f", math.floor(seconds/3600))
+		local mins = string.format("%02.f", math.floor(seconds/60 - (hours*60)))
+		local secs = string.format("%02.f", math.floor(seconds - hours*60*60 - mins*60))
+		local msecs = string.format("%03.f", seconds*1000 - hours*60*60*1000 - mins*60*1000 - secs*1000)
+		result = hours..":"..mins..":"..secs.."."..msecs
+	end
+	return result
 end
 
 local function create_chapter_entry(title, time_start, time_end)
@@ -198,14 +196,14 @@ local function save_chapter()
 	full_chapter_str = full_chapter_str .. "\t</EditionEntry>\n"
 	full_chapter_str = full_chapter_str .. "</Chapters>"
 	
-    local path = mp.get_property("path")
-    dir, name_ext = utils.split_path(path)
-    local name = string.sub(name_ext, 1, (string.len(name_ext)-4))
-    local out_path = utils.join_path(dir, name.."_chapter.xml")
-    local file = io.open(out_path, "w")
-    file:write(full_chapter_str)
-    file:close()
-    mp.osd_message("Export file to: "..out_path, 3)
+	local path = mp.get_property("path")
+	dir, name_ext = utils.split_path(path)
+	local name = string.sub(name_ext, 1, (string.len(name_ext)-4))
+	local out_path = utils.join_path(dir, name.."_chapter.xml")
+	local file = io.open(out_path, "w")
+	file:write(full_chapter_str)
+	file:close()
+	mp.osd_message("Export file to: "..out_path, 3)
 	
 end
 
